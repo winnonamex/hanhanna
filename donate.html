@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#120d20">
+<title>Donate | Hân Hanna</title>
+<style>
+:root{--pink:#f4b8ff;--violet:#bd8cff;--line:rgba(255,255,255,.22)}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;color:#fff;font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;background:#100b1b;overflow-x:hidden}
+#wallpaper{position:fixed;inset:0;width:100%;height:100%;object-fit:cover;z-index:-4;filter:brightness(.38) saturate(.8)}
+.overlay{position:fixed;inset:0;z-index:-3;background:linear-gradient(120deg,rgba(13,8,24,.84),rgba(37,13,53,.55),rgba(8,9,23,.82))}
+#petals{position:fixed;inset:0;pointer-events:none;z-index:5}
+nav{position:sticky;top:14px;margin:14px auto 0;width:min(1050px,calc(100% - 28px));display:flex;justify-content:space-between;align-items:center;padding:13px 18px;border:1px solid var(--line);border-radius:20px;background:#21162c88;backdrop-filter:blur(22px);z-index:10}
+.brand{font-weight:850;letter-spacing:.14em;color:#f7d9ff;font-size:13px}nav a{color:#fff;text-decoration:none;font-size:12px}
+main{width:min(1050px,calc(100% - 32px));margin:55px auto 70px}
+.intro{text-align:center;margin:0 auto 28px;max-width:650px}.eyebrow{font-size:11px;letter-spacing:.25em;color:#e7b8ff;font-weight:800}
+h1{font-size:clamp(38px,7vw,68px);letter-spacing:-.06em;margin:12px 0}.intro p{color:#e4d5ec;font-size:14px;line-height:1.7}
+.layout{display:grid;grid-template-columns:1fr .9fr;gap:20px;align-items:start}
+.panel{padding:24px;border:1px solid var(--line);border-radius:26px;background:linear-gradient(145deg,#ffffff20,#ffffff08);backdrop-filter:blur(24px) saturate(150%);box-shadow:0 25px 80px #0005}
+h2{font-size:18px;margin:0 0 8px}.muted{font-size:12px;color:#d7c9df;line-height:1.65;margin:0 0 20px}
+.amounts{display:grid;grid-template-columns:repeat(2,1fr);gap:11px}
+.amount{border:1px solid #ffffff30;border-radius:16px;background:#ffffff0b;color:white;padding:16px 10px;font-size:15px;font-weight:800;cursor:pointer;transition:.2s}
+.amount small{display:block;font-size:10px;font-weight:500;color:#d8c4e3;margin-top:5px}
+.amount.active,.amount:hover{border-color:#e6b4ff;background:linear-gradient(135deg,#dca8ff55,#f7b7e933);box-shadow:0 0 25px #c27cff25;transform:translateY(-2px)}
+label{display:block;font-size:12px;color:#eadcf1;margin:18px 0 8px}
+input,textarea{width:100%;padding:13px 14px;border-radius:13px;border:1px solid #ffffff30;background:#140e20a8;color:#fff;outline:none;font:inherit}
+input:focus,textarea:focus{border-color:#e4b0ff;box-shadow:0 0 0 3px #d5a1ff20}
+textarea{min-height:85px;resize:vertical}
+.total{display:flex;justify-content:space-between;align-items:center;margin:20px 0;padding:15px;border-radius:15px;background:#ffffff0b;border:1px solid #ffffff1c}
+.total strong{font-size:22px;color:#f0caff}
+button.submit{width:100%;padding:15px;border:0;border-radius:15px;background:linear-gradient(135deg,#ffe0fb,#c99aff);color:#21132a;font-weight:900;letter-spacing:.05em;cursor:pointer}
+.qr-placeholder{min-height:260px;border:1px dashed #ffffff55;border-radius:20px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:20px;background:#130d1e88}
+.qr-placeholder .symbol{font-size:55px;color:#e8c1ff}.qr-placeholder p{font-size:12px;line-height:1.7;color:#dfcfe8;max-width:260px}
+.note{font-size:11px;color:#d6c4df;line-height:1.65;margin-top:16px}
+footer{text-align:center;padding:30px;color:#cbb8d4;font-size:11px;letter-spacing:.14em}
+@media(max-width:720px){.layout{grid-template-columns:1fr}main{margin-top:40px}.panel{padding:19px}}
+</style>
+</head>
+<body>
+<video id="wallpaper" autoplay muted loop playsinline preload="auto"><source src="assets/live-wallpaper.mp4" type="video/mp4"></video>
+<div class="overlay"></div><canvas id="petals"></canvas>
+<nav><div class="brand">HAN HANNA ✦</div><a href="index.html">← BACK TO HOME</a></nav>
+<main>
+  <div class="intro"><div class="eyebrow">A LITTLE SUPPORT MEANS A LOT</div><h1>Send some love ♡</h1><p>Cảm ơn bạn đã ghé thăm góc nhỏ của Hanna. Chọn một mức ủng hộ tùy ý và để lại lời nhắn dễ thương nhé.</p></div>
+  <div class="layout">
+    <div class="panel">
+      <h2>Choose your support</h2><p class="muted">Chọn nhanh một mức hoặc nhập số tiền bạn muốn.</p>
+      <div class="amounts" id="amounts">
+        <button class="amount active" data-value="20000">20.000đ<small>Little support</small></button>
+        <button class="amount" data-value="50000">50.000đ<small>Sweet support</small></button>
+        <button class="amount" data-value="100000">100.000đ<small>Lovely support</small></button>
+        <button class="amount" data-value="200000">200.000đ<small>Big love</small></button>
+      </div>
+      <label for="custom">Hoặc nhập số tiền (VNĐ)</label><input id="custom" type="number" min="1000" step="1000" placeholder="Ví dụ: 30000">
+      <label for="sender">Tên người gửi (không bắt buộc)</label><input id="sender" maxlength="40" placeholder="Tên hoặc nickname">
+      <label for="message">Lời nhắn (không bắt buộc)</label><textarea id="message" maxlength="180" placeholder="Gửi Hanna một lời nhắn..."></textarea>
+      <div class="total"><span>Selected amount</span><strong id="total">20.000đ</strong></div>
+      <button class="submit" id="continue">CONTINUE TO BANK QR ↗</button>
+      <p class="note">Hiện tại đây là giao diện chọn số tiền. QR ngân hàng sẽ được thêm sau khi có ảnh QR và thông tin nhận tiền chính xác.</p>
+    </div>
+    <div class="panel">
+      <h2>Bank transfer</h2><p class="muted">Quét mã QR để ủng hộ Hanna nhanh chóng.</p>
+      <div class="qr-placeholder"><div class="symbol">♡</div><strong>Bank QR will appear here</strong><p>Chờ ảnh QR ngân hàng của chủ tài khoản. Không sử dụng mã QR giả hoặc thông tin nhận tiền mẫu.</p></div>
+      <p class="note" id="transferSummary">Sau khi chọn số tiền, thông tin chuyển khoản sẽ được hiển thị tại đây khi QR được cấu hình.</p>
+    </div>
+  </div>
+</main>
+<footer>HAN HANNA · THANK YOU FOR YOUR KINDNESS ♡</footer>
+<script>
+const buttons=[...document.querySelectorAll('.amount')],custom=document.getElementById('custom'),total=document.getElementById('total');
+let selected=20000;
+const money=n=>new Intl.NumberFormat('vi-VN').format(n)+'đ';
+function update(n){selected=n;total.textContent=money(n);buttons.forEach(b=>b.classList.toggle('active',Number(b.dataset.value)===n));}
+buttons.forEach(b=>b.addEventListener('click',()=>{custom.value='';update(Number(b.dataset.value))}));
+custom.addEventListener('input',()=>{const n=Number(custom.value);if(n>=1000){selected=n;total.textContent=money(n);buttons.forEach(b=>b.classList.remove('active'))}});
+document.getElementById('continue').addEventListener('click',()=>{
+ const n=Number(custom.value||selected);
+ if(!Number.isFinite(n)||n<1000){alert('Vui lòng chọn số tiền từ 1.000đ trở lên.');return;}
+ document.getElementById('transferSummary').textContent='Số tiền dự kiến: '+money(n)+'. QR ngân hàng sẽ được gắn sau khi bạn cung cấp mã QR chính thức.';
+});
+const c=document.getElementById('petals'),ctx=c.getContext('2d');let w,h,ps=[];
+function resize(){w=c.width=innerWidth*devicePixelRatio;h=c.height=innerHeight*devicePixelRatio;c.style.width=innerWidth+'px';c.style.height=innerHeight+'px';ctx.setTransform(devicePixelRatio,0,0,devicePixelRatio,0,0)}
+function petal(){return{x:Math.random()*innerWidth,y:Math.random()*innerHeight,s:3+Math.random()*5,v:.6+Math.random()*1.4,d:(Math.random()-.5)*1.1,r:Math.random()*6,a:.4+Math.random()*.5}}
+function frame(){ctx.clearRect(0,0,innerWidth,innerHeight);for(const p of ps){p.y+=p.v;p.x+=p.d+Math.sin(p.y*.012)*.3;p.r+=.02;if(p.y>innerHeight+15)Object.assign(p,petal(),{y:-15});ctx.save();ctx.translate(p.x,p.y);ctx.rotate(p.r);ctx.globalAlpha=p.a;ctx.fillStyle='#ffd7f4';ctx.beginPath();ctx.ellipse(0,0,p.s*.6,p.s,0,0,7);ctx.fill();ctx.restore()}requestAnimationFrame(frame)}
+addEventListener('resize',resize);resize();ps=Array.from({length:35},petal);frame();
+</script>
+</body></html>
